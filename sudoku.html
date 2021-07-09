@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Generic - Editorial by HTML5 UP</title>
+		<title>Sudoku - Daniel J. Kraft</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -74,13 +74,100 @@
 									<span class="image object">
 										<img src="images/sudoku/FullRankHint.png" alt="" />
 									</span>
-									<p>We can take our original constraint matrix and use a QR decomposition to get the linear independent rows of the matrix to produce a full rank matrix. This will not change the solutions of the linear system and will make computations more efficient. We can then encode the specifics of an individual puzzle by adding a row with a single 1's entry in the corresponding spot to each individual initial number. If there are 15 initialed points then we add 15 additional rows. The resulting matrix is shown to the left. </p>
+									<p>We can take our original constraint matrix and use a QR decomposition to get the linear independent rows of the matrix to produce a full rank matrix. This will not change the solutions of the linear system and will make computations more efficient. We can then encode the specifics of an individual puzzle by adding a row with a single 1's entry in the corresponding spot to each individual initial number. If there are 15 initial points then we add 15 additional rows. The resulting matrix is shown to the left. </p>
 								</section>
 
 								<section id="banner">
 									<p></p>
 									<span class="image object">
-										<img src="images/sudoku/FullRankHint.png" alt="" />
+										<img src="images/sudoku/OrigSuc.png" alt="" />
+									</span>
+									
+								</section>
+
+
+								<section id="banner">
+									<p></p>
+									<span class="image object">
+										<img src="images/sudoku/OrigRate.png" alt="" />
+									</span>
+									
+								</section>
+
+								<section id="banner">
+									<p>It is here that we introduce the brute-force 'Backtracking' algorithm for solving Sudoku. </p>
+									<span class="image object">
+										<img src="images/sudoku/Backtracking.gif" alt="" />
+									</span>
+									
+								</section>
+
+
+								<section id="banner">
+									<p>As you can see, the backtracking algorithm has the advantage of always finding a solution to the puzzle.</p>
+									<span class="image object">
+										<img src="images/sudoku/BackSuc.png" alt="" />
+									</span>
+									
+								</section>
+
+
+								<section id="banner">
+									<p>Unfortunately, for harder problems with less initial hints, backtracking takes a long time to reach it's solution. However, backtracking only takes a long time when using convex optimization does poorly. When solving the convex problem solves the problem with high probability, backtracking actually performs better. If this were the end of the story then it would always be better to use the backtracking algorithm as opposed to the convex sudoku solver. We introduce the topic of weighted L1-norm minimization to improve the results of our solver.</p>
+									<span class="image object">
+										<img src="images/sudoku/BackTime.png" alt="" />
+									</span>
+									
+								</section>
+
+								
+
+								<section id="banner">
+									<div class="content">
+										<h2>Weighted L1-Norm Minimization</h2>
+										<p>Testing</p>
+									</div>
+									<span class="image object">
+										<img src="images/sudoku/WeightedPic.png" alt="" />
+									</span>
+									
+								</section>
+
+
+								<section id="banner">
+									<p></p>
+									<span class="image object">
+										<img src="images/sudoku/FinalSuc.png" alt="" />
+									</span>
+									
+								</section>
+
+
+								<section id="banner">
+									<p></p>
+									<span class="image object">
+										<img src="images/sudoku/FinalTime.png" alt="" />
+									</span>
+								</section>
+
+								<section id="banner">
+									<p></p>
+									<span class="image object">
+										<img src="images/sudoku/EasySuc.png" alt="" />
+									</span>
+									<span class="image object">
+										<img src="images/sudoku/EasyTime.png" alt="" />
+									</span>
+									
+								</section>
+
+								<section id="banner">
+									<p></p>
+									<span class="image object">
+										<img src="images/sudoku/HardSuc.png" alt="" />
+									</span>
+									<span class="image object">
+										<img src="images/sudoku/HardTime.png" alt="" />
 									</span>
 									
 								</section>
@@ -153,7 +240,7 @@
 									<header class="major">
 										<h2>Get in touch</h2>
 									</header>
-									<p>Feel free to reach out with any work or collaboration opportunity you have.</p>
+									<p>Feel free to reach out with any work or collaboration opportunities you have.</p>
 									<ul class="contact">
 										<li class="icon solid fa-envelope"><a href="#">danieljk46@gmail.com</a></li>
 										<li class="icon solid fa-phone">(240) 561-2819</li>
