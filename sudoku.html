@@ -33,7 +33,7 @@
 							<!-- Content -->
 								<section>
 									<header class="main">
-										<h1>Solving Sudoku</h1>
+										<h1>Solving Sudoku'</h1>
 									</header>
 
 									<span class="image main"><img src="images/pic11.jpg" alt="" /></span>
@@ -75,6 +75,13 @@
 										<img src="images/sudoku/FullRankHint.png" alt="" />
 									</span>
 									<p>We can take our original constraint matrix and use a QR decomposition to get the linear independent rows of the matrix to produce a full rank matrix. This will not change the solutions of the linear system and will make computations more efficient. We can then encode the specifics of an individual puzzle by adding a row with a single 1's entry in the corresponding spot to each individual initial number. If there are 15 initial points then we add 15 additional rows. The resulting matrix is shown to the left. </p>
+								</section>
+
+								<section id="banner">
+									<div class="content">
+										<h2>L1-Norm Minimization</h2>
+										<p>It is clear that a valid Sudoku solution will satisfy the set of linear equations. However, the converse is certainly not true. It is here that we use the concept of sparsity to help converge to a correct solution. Assume we have a Sudoku puzzle with a unique solution X_s. We show the solution to min ||X||_0 = X_s. We know any Sudoku solution X_s will satisfy the condition ||X_s||_0 = N^2. Now assume there exists a solution X_S^* \neq X_s and X_s^* < N^2. Then not every cell in the Sudoku puzzle will be filled. Then for all feasible X, ||X||_0 \geq N^2.</p>
+									</div>									
 								</section>
 
 								<section id="banner">
