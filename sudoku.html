@@ -10,6 +10,18 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>		
 	</head>
 	<body class="is-preload">
 
@@ -33,17 +45,25 @@
 							<!-- Content -->
 								<section>
 									<header class="main">
-										<h1>Solving Sudoku'</h1>
+										<h1>Solving Sudoku</h1>
+										
 									</header>
 
 									<span class="image main"><img src="images/pic11.jpg" alt="" /></span>
 
-									<p>In this project, I show how one can formulate a Sudoku puzzle as a convex minimization problem. I discuss the strengths and weaknesses of this approach and compare the results to some brute force methods commonly used to solve Sudoku puzzles.</p>
+									<p>In this project, I show how one can formulate a Sudoku puzzle as a convex minimization problem. I discuss the strengths and weaknesses of this approach and compare the results to some brute force methods commonly used to solve Sudoku puzzles. While there are faster and more consistent ways to solve Sudoku, this was an interesting dive into convex optimization and using L1 Norms to produce sparse solutions to linear systems.</p>
+									<div>
+										<ul class="actions_test2">
+											<li><a href="https://github.com/Daniel-J-Kraft/Sudoku-Solvers" class="button">Github</a></li>
+										</ul>
+									</div>
 								</section>
 
 								<section id="banner">
-									<div class="content">
-										<h2>Formulating the problem</h2>
+									
+
+									<div class="content_centered">
+										<h2>Formulating the Problem</h2>
 										<p>In order to solve a puzzle as a convex problem, we must formulate the problem as a set of linear equations. To do this we must first be able to represent the state of a puzzle as a single binary vector. To do this we turn the 9x9 sudoku grid to an 81 dimensional vector. We then further extend each entry by 9, getting a resulting in a 729 dimensional vector. Every 9 entries in this vector represent a single Sudoku square. To be well formed there should only be a single 1 entry in each of these blocks, a ones in the first place corresponds to a 1, a one in the second place corresponds to a 2 etc. For instance, the sudoku puzzle to the right is represented as follows. </p>
 									</div>
 									<span class="image object">
@@ -55,14 +75,14 @@
 									<span class="image object">
 										<img src="images/sudoku/constraints.png" alt="" />
 									</span>
-									<div class="content">
+									<div class="content_centered">
 										<p>We then construct the constraint matrix. We choose the constraint matrix to be such that a valid Sudoku solution will satisfy the equation Ax = 1. It is shown to the left how to accomplish this for the first column, row, or 3x3 block.  </p>
 									</div>
 									
 								</section>
 
 								<section id="banner">
-									<div class="content">
+									<div class="content_centered">
 										<p>By contiuing to create these rules for all rows, columns, and 3x3 principle blocks we recieve the constraint matrix shown to the right. The white pixels correspond to ones of the matrix and the rest are zeros. Note that any valid form of a matrix solution, encoded into our binary vector form, will satisfy the equation Ax=1. Howver, there are many 'solutions' to the linear system that are not well formed sudoku puzzles. Therefore, it is not sufficient to find solutions to our linear systems to solve an individual sudoku puzzle.</p>
 									</div>
 									<span class="image object">
@@ -74,7 +94,9 @@
 									<span class="image object">
 										<img src="images/sudoku/FullRankHint.png" alt="" />
 									</span>
-									<p>We can take our original constraint matrix and use a QR decomposition to get the linear independent rows of the matrix to produce a full rank matrix. This will not change the solutions of the linear system and will make computations more efficient. We can then encode the specifics of an individual puzzle by adding a row with a single 1's entry in the corresponding spot to each individual initial number. If there are 15 initial points then we add 15 additional rows. The resulting matrix is shown to the left. </p>
+									<div class="content_centered">
+										<p>We can take our original constraint matrix and use a QR decomposition to get the linear independent rows of the matrix to produce a full rank matrix. This will not change the solutions of the linear system and will make computations more efficient. We can then encode the specifics of an individual puzzle by adding a row with a single 1's entry in the corresponding spot to each individual initial number. If there are 15 initial points then we add 15 additional rows. The resulting matrix is shown to the left. </p>
+									</div>
 								</section>
 
 								<section id="banner">
@@ -85,7 +107,9 @@
 								</section>
 
 								<section id="banner">
-									<p></p>
+									<div class="content_centered">
+										<p>We run our experiments by generating random initializations of Sudoku boards with a specified number of 'hints'. For each number of initial hints we run 100 experiments, we record the average of all successful attempts. We can see that  using this method only reliably solves the problem when there are more than 40 initial hints. This is... not great. The average Sudoku puzzle has 21 initial hints so this is not adequate. </p>
+									</div>
 									<span class="image object">
 										<img src="images/sudoku/OrigSuc.png" alt="" />
 									</span>
@@ -102,7 +126,9 @@
 								</section>
 
 								<section id="banner">
-									<p>It is here that we introduce the brute-force 'Backtracking' algorithm for solving Sudoku. </p>
+									<div class="content_centered">
+										<p>It is here that we introduce the brute-force 'Backtracking' algorithm for solving Sudoku. </p>
+									</div>
 									<span class="image object">
 										<img src="images/sudoku/Backtracking.gif" alt="" />
 									</span>
@@ -111,7 +137,9 @@
 
 
 								<section id="banner">
-									<p>As you can see, the backtracking algorithm has the advantage of always finding a solution to the puzzle.</p>
+									<div class="content_centered">
+										<p>As you can see, the backtracking algorithm has the advantage of always finding a solution to the puzzle.</p>
+									</div>
 									<span class="image object">
 										<img src="images/sudoku/BackSuc.png" alt="" />
 									</span>
@@ -120,19 +148,52 @@
 
 
 								<section id="banner">
-									<p>Unfortunately, for harder problems with less initial hints, backtracking takes a long time to reach it's solution. However, backtracking only takes a long time when using convex optimization does poorly. When solving the convex problem solves the problem with high probability, backtracking actually performs better. If this were the end of the story then it would always be better to use the backtracking algorithm as opposed to the convex sudoku solver. We introduce the topic of weighted L1-norm minimization to improve the results of our solver.</p>
+									<div class="content_centered">
+										<p>Unfortunately, for harder problems with less initial hints, backtracking takes a long time to reach it's solution. However, backtracking only takes a long time when using convex optimization does poorly. When solving the convex problem solves the problem with high probability, backtracking actually performs better. If this were the end of the story then it would always be better to use the backtracking algorithm as opposed to the convex sudoku solver. We introduce the topic of weighted L1-norm minimization to improve the results of our solver.</p>
+									</div>
 									<span class="image object">
 										<img src="images/sudoku/BackTime.png" alt="" />
 									</span>
 									
 								</section>
 
-								
-
 								<section id="banner">
 									<div class="content">
 										<h2>Weighted L1-Norm Minimization</h2>
-										<p>Testing</p>
+										<p>$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$</p>
+										<p>The most obvious choice of weights is a strict reciprocal of the solution vector, as shown below:</p>
+										$$w_i = \begin{cases}1\over x_i & x_i \ne 0\\ \infty & x= 0 \\ \end{cases}$$
+										<p>If the true signal x0 is k-sparse, i.e., obeys $\left\lVert x_0 \right\rVert_{\ell_0} \leq k$ then the above choice of weights is guaranteed to find the correct solution, since it is equivalent to the $\ell_0$ norm. However, this requires prior knowledge of the signal x0 itself, which in general we do not know. However, this gives us an intuition on how to proceed and what we should be looking for. Whatever weight we choose should have some inverse proportionality with the individual entries of the recovery vector. The algorithm we use for this project starts with a weighting vector of all ones:</p>
+										$$w^{(0)}=1^{(n\times 1)}$$
+										<p>We then solve the linear program with this weighting vector:</p>
+										$$ x^{(\ell)} = argmin  ||w^Tx||_1 $$
+										<p>Notice that the first iteration is simply the `1 minimization technique described earlier. Once this is done, we update the weights according to the following rule:</p>
+										$$ w_i^{(1 + \ell)}= {1\over|x^\ell_i|+\epsilon} $$
+										<p> Where is to be chosen as a number slightly less than the maximum modulus of our solution vector. In our case, since our solution vector is binary, $\epsilon\in[0.5, 1)$, we for our experiments we choose $\epsilon = 0.5$.  is included to increase the stability of the algorithm and to ensure that a zero-valued component in $x^{(\ell)}$ does not strictly prohibit a nonzero estimate at the next step. The paper claims that the choice of epsilon is fairly robust and we show this to be true later in this paper. The algorithm is terminated when
+										$$ \left\lVert x_i - x_{i-1}\right\rVert^2_2 < k $$ Where k is some stopping tolerance. There is also a maximum iterations parameter that will terminate the program if it has not reached the stopping tolerance in a certain amount of iterations.
+</p>
+
+</p>
+									</div>									
+								</section>
+
+
+								<section id="banner">									
+									<div class="content_centered">
+									<p>We show the effectiveness of reweighted $\ell_1$ minimization with a compressed sensing example. Say you are given a random $\Phi$ matrix:
+									$\Phi = \begin{bmatrix}
+										2 & 1 & 1 \\
+										1 & 1 & 2
+										\end{bmatrix} $ Observe that th sparsest solution to this linear system is given by:
+										$ x_0 = \begin{bmatrix}
+										0 \\
+										1 \\
+										0
+										\end{bmatrix} $ and when we multiply these two together we get 
+										$ y = \Phi x_0 = \begin{bmatrix}
+										1 \\
+										1
+										\end{bmatrix} $ We can visualie this solution to the right in (a).</p>									
 									</div>
 									<span class="image object">
 										<img src="images/sudoku/WeightedPic.png" alt="" />
