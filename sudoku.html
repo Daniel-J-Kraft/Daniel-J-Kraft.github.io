@@ -118,16 +118,18 @@
 
 
 								<section id="banner">
-									<p></p>
 									<span class="image object">
 										<img src="images/sudoku/OrigRate.png" alt="" />
 									</span>
+									<div class="content_centered">
+										<p>We can now look at the time it takes for each algorithm in question to succesfully solve a puzzle. We can see that using the linear independent versions of the constraint matrix runs apprecialbly faster, and python's linprog solver is faster than CVXOPT's solvers.</p>
+									</div>
 									
 								</section>
 
 								<section id="banner">
 									<div class="content_centered">
-										<p>It is here that we introduce the brute-force 'Backtracking' algorithm for solving Sudoku. </p>
+										<p>We now introduce the backtracking algorithm, which is a brute force method of solving a Sudoku puzzle. This is a recursive program that works in the following way. It looks at the first available spot and puts a 1 in it. It then goes to the next and puts a 2, if there is a contradiction it ups the number by one. If it runs through all possible iterations in an individual square and there are no valid numbers it goes back to the previous entry and increases it by one. It continues in this way until the solution is found. The results of the backtracking algorithm is shown below.</p>
 									</div>
 									<span class="image object">
 										<img src="images/sudoku/Backtracking.gif" alt="" />
@@ -137,19 +139,18 @@
 
 
 								<section id="banner">
-									<div class="content_centered">
-										<p>As you can see, the backtracking algorithm has the advantage of always finding a solution to the puzzle.</p>
-									</div>
 									<span class="image object">
 										<img src="images/sudoku/BackSuc.png" alt="" />
 									</span>
-									
+									<div class="content_centered">
+										<p>As we can see the backtracking algorithm solves puzzles with 100% accuracy. However, the downside of backtracking is evident when looking at the run time of the algorithm.</p>
+									</div>
 								</section>
 
 
 								<section id="banner">
 									<div class="content_centered">
-										<p>Unfortunately, for harder problems with less initial hints, backtracking takes a long time to reach it's solution. However, backtracking only takes a long time when using convex optimization does poorly. When solving the convex problem solves the problem with high probability, backtracking actually performs better. If this were the end of the story then it would always be better to use the backtracking algorithm as opposed to the convex sudoku solver. We introduce the topic of weighted L1-norm minimization to improve the results of our solver.</p>
+										<p>We see that the algorithm takes a comparatively long time to solve any puzzle with under 30 hints. However, when there are any more than 35 initial hints the backtracking algorithm solves the puzzle faster than any of the linear program solvers. We see that backtracking always outperforms our $\ell_1$ minization algorithms. When there are few hints, backtracking takes a long time, but it is successful where the $\ell_1$ minimization algorithms are not. When there are many hints, both algorithms solve the puzzle, but backtracking is faster. If this were the end of our analysis, there would be no reason to use $\ell_1$ minimization over backtracking.</p>
 									</div>
 									<span class="image object">
 										<img src="images/sudoku/BackTime.png" alt="" />
@@ -160,7 +161,10 @@
 								<section id="banner">
 									<div class="content">
 										<h2>Weighted L1-Norm Minimization</h2>
-										<p>$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$</p>
+										<p>When using the $\ell_1$ heuristic, we hope that the solution generated will be equivalent to the solution of the $\ell_0$ norm.</p>
+										$$ \min_x \sum^n_{i=1} \left\lVert x_i \right\rVert _0 \iff  \min_x \sum^n_{i=1} |x_i|$$
+										<p>However, there is a problem with the `1 norm heuristic. When there is a large discrepancy of magnitudes within a vector, this equivalency starts to break down. To fix this we attempt to add strictly positive weights to each entry of the sum with the hope that the weighted `1 norm will more closely represent the $\ell_0$ norm.</p>
+										<h5>Weighting Choices</h5>
 										<p>The most obvious choice of weights is a strict reciprocal of the solution vector, as shown below:</p>
 										$$w_i = \begin{cases}1\over x_i & x_i \ne 0\\ \infty & x= 0 \\ \end{cases}$$
 										<p>If the true signal x0 is k-sparse, i.e., obeys $\left\lVert x_0 \right\rVert_{\ell_0} \leq k$ then the above choice of weights is guaranteed to find the correct solution, since it is equivalent to the $\ell_0$ norm. However, this requires prior knowledge of the signal x0 itself, which in general we do not know. However, this gives us an intuition on how to proceed and what we should be looking for. Whatever weight we choose should have some inverse proportionality with the individual entries of the recovery vector. The algorithm we use for this project starts with a weighting vector of all ones:</p>
@@ -198,28 +202,43 @@
 									<span class="image object">
 										<img src="images/sudoku/WeightedPic.png" alt="" />
 									</span>
-									
+								</section>
+								<section id="banner">
+									<div class="content">
+										<p>However, when we minimize using the $\ell_1$ norm, we get the vector: $ x^* = \begin{bmatrix}
+										1\over 3 \\
+										0 \\
+										1\over 3
+										\end{bmatrix} $ which has an $\ell_1$ norm of 2. We see that in this situation the $\ell_1$ norm solution does not correspond the the $\ell_0$ norm solution. This is visualized well in (b). In order to fix this, we use the weighting vector that we introduced earlier: $ x^* = \begin{bmatrix}
+										3 \\
+										1 \\
+										3
+										\end{bmatrix} $When we use the $\ell_1$ minimization technique on this weighted sum we get the sparsest vector, as visualized in (c). It is easily checked that as long as we had chosen the weighting vector such that: $w_2 \leq {w_1 + w_3 \over 3}$ Then we would have recovered the sparsest solution to our linear equation.</p>
+									</div>
 								</section>
 
 
 								<section id="banner">
-									<p></p>
 									<span class="image object">
 										<img src="images/sudoku/FinalSuc.png" alt="" />
 									</span>
+									<div class="content_centered">
+										<p>We can use this iterative algorithm on our Sudoku solvers. We set = 0.5, the stopping tolerance k = 1 × 10−4, and the maximum iterations to 50. With this setup, we find the success rate of our solvers to be. We can see that using the reweighted algorithm produces much better success results. For any amount of initial hints, the reweighted schema solves the puzzle roughly half of the time, and solves with high probability starting around 25 initial hints. If we look at the time average of this algorithm</p>
+									</div>
 									
 								</section>
 
 
 								<section id="banner">
-									<p></p>
+									<div class="content_centered">
+										<p>We see that it takes on average about twice as long as the original $\ell_1$ technique. Since the results are so much more reliable, it is well worth the extra computational time.</p>
+									</div>
 									<span class="image object">
 										<img src="images/sudoku/FinalTime.png" alt="" />
 									</span>
 								</section>
 
 								<section id="banner">
-									<p></p>
 									<span class="image object">
 										<img src="images/sudoku/EasySuc.png" alt="" />
 									</span>
