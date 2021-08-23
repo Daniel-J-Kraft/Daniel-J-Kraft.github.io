@@ -50,10 +50,10 @@
 
 									<span class="image main"><img src="images/pic11.jpg" alt="" /></span>
 
-									<p>There has been much research done on minimizing functions when all information is available to a single agent. In the field of decentralized optimization, we are concerenced with minimizing function when information about the global function is spread out between many agents and communication is costly. There are many questions that arise in this scenario: Under what conditions do the agents agree, and how quickly? Under what conditions do they find the minimizer to the global function? What algorithms work best under what conditions? How do these properties change if each agent operates asynchronously? What happens when communication is sparsified and non-reliable. We studied all these questions and more at my time at NRL.</p>
+									<p>There has been much research done on minimizing functions when all information is available to a single agent. In the field of decentralized optimization, we are concerenced with minimizing function when information about the global function is spread out between many agents and communication is costly. There are many questions that arise in this scenario: Under what conditions do the agents agree, and how quickly? Under what conditions do they find the minimizer to the global function? What algorithms work best under what conditions? How do these properties change if each agent operates asynchronously? What happens when communication is sparsified and non-reliable. These are some of the questions I studied while at the NRL. </p>
 
-									<p>In the age of the Internet of Things, decentralized optimization has taken off as a field. With applications such as (examples). </p>
-									<p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit tristique lorem ipsum dolor.</p>
+									<p>This problem is prvalent in modern-day machine learning where, for example, a large collection of images are stored on multiple machines in a data center for the purpose i=of image classification. There are also applications in sensor networks and robotic swarms, where the sensors and robots collect measurements in order to learn an underlying phenomenon, navigate an environment, or decide on an optimal control action. Some examples include Consensus based bundle algorithms and Pose graph optimization. </p>
+									
 
 									<hr class="major" />
 
@@ -64,19 +64,48 @@
 									$$ F(x) = {1\over n}\sum^n_{i=1}f_i(x)$$
 									<p>We attempt to find the solution by solving the problem</p>
 									$$ \min_{x_i \in \mathbb{R}^p} \sum^n_{i=1}f_i(x) $$
-									<p>Where $N_i$ is the set of all neighbors for </p>
+									
 									$$ \text{s.t.  } x_i = x_j \;  \forall \; i,j \in N_i $$ 
-
-									$$  $$
-									
-									$$  $$
-									
-									$$  $$
-									
-									$$  $$
-									
-									$$  $$
+									<p>Where $N_i$ is the set of all neighbors for agent i. Agents can only communicate with agents in their neighbor hood, and at the end of the algorithm, all agents must agree with all their neighbors. Since we generally only look at graphs that are fully connected this implies that all agents agree on a solution. This problem is nontrivial since agents can only exchange state information, and must not transmit any details about their own local, private function. </p>
 								</section>
+
+								<h2>Algorithms</h2>
+								<p>There have been many algorithms that have been proposed to solve this problem in a distributed fashion. Througout my time at NRL, I studied and implimented many of these, some of which are listed below:</p>
+								<ul>
+									<li>Decentralized Gradient Descent</li>
+									<li>AB Push Pull
+										<ul>
+											<li>Polyak Heavy-ball Momentum</li>
+											<li>Nesterov Acceleration</li>
+										</ul>
+									</li>
+									<li>Decentralizeed Frank Wolfe</li>
+									<li>Fast Row Stochastic Optimization (FROST)</li>
+									<li>Distributed Nesterov Methods</li>
+									<li>Fast Row-Stochastic Optimization with Neseterov's Momentum (FROZEN)</li>
+									<li>Decentralized Projected Gradient</li>
+									<li>Distributed Successive Convex Approximation Algorithm over Time-Varying DigrAphs (SONATA)</li>
+
+								</ul>
+								<hr class="major" />
+								<h2>MPI</h2>
+								<p>One question of critical importance is "How effective are these algorithms when all agents act and communicate asynchronously?"" This is relevent because in real decentralized systems it is often infeasible to have all agents operate and communicate on a uniform "heartbeat". In order to simulate this asychronicity, we implimented our algorithms using pythons Message Passing Interface (MPI) package mpi4py. This allowed us to run each agent on it's own process asynchronously. We were then able to analyze the effects on convergence that differing levels of asychronicity produced. </p>
+
+								<section id="banner">
+									<span class="image object">
+										<img src="images/sudoku/HardSuc.png" alt="" />
+									</span>
+									<span class="image object">
+										<img src="images/sudoku/HardTime.png" alt="" />
+									</span>
+									
+								</section>
+
+								<hr class="major" />
+
+								<h2>Python</h2>
+								<p>I was in charge of creating and maintaing a python environment to design, impliment, and analyze various decentralized algorithms. </p>
+								
 						</div>
 					</div>
 

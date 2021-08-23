@@ -76,7 +76,7 @@
 										<img src="images/sudoku/constraints.png" alt="" />
 									</span>
 									<div class="content_centered">
-										<p>We then construct the constraint matrix. We choose the constraint matrix to be such that a valid Sudoku solution will satisfy the equation Ax = 1. It is shown to the left how to accomplish this for the first column, row, or 3x3 block.  </p>
+										<p>We then construct the constraint matrix. We choose the constraint matrix to be such that a valid Sudoku solution will satisfy the equation $Ax = 1$. It is shown to the left how to accomplish this for the first column, row, or 3x3 block.  </p>
 									</div>
 									
 								</section>
@@ -102,7 +102,7 @@
 								<section id="banner">
 									<div class="content">
 										<h2>L1-Norm Minimization</h2>
-										<p>It is clear that a valid Sudoku solution will satisfy the set of linear equations. However, the converse is certainly not true. It is here that we use the concept of sparsity to help converge to a correct solution. Assume we have a Sudoku puzzle with a unique solution X_s. We show the solution to min ||X||_0 = X_s. We know any Sudoku solution X_s will satisfy the condition ||X_s||_0 = N^2. Now assume there exists a solution X_S^* \neq X_s and X_s^* < N^2. Then not every cell in the Sudoku puzzle will be filled. Then for all feasible X, ||X||_0 \geq N^2.</p>
+										<p>It is clear that a valid Sudoku solution will satisfy the set of linear equations. However, the converse is certainly not true. It is here that we use the concept of sparsity to help converge to a correct solution. Assume we have a Sudoku puzzle with a unique solution $X_s$. We show the solution to min $\left\lVert X \right\rVert_0 = X_s$. We know any Sudoku solution $X_s$ will satisfy the condition $\left\lVert X_s \right\rVert_0 = N^2$. Now assume there exists a solution $X_{S^*} \neq X_s$ and $X_{s^*} < N^2$. Then not every cell in the Sudoku puzzle will be filled. Then for all feasible $X$, $\left\lVert X \right\rVert_0 \geq N^2$.</p>
 									</div>									
 								</section>
 
@@ -122,7 +122,7 @@
 										<img src="images/sudoku/OrigRate.png" alt="" />
 									</span>
 									<div class="content_centered">
-										<p>We can now look at the time it takes for each algorithm in question to succesfully solve a puzzle. We can see that using the linear independent versions of the constraint matrix runs apprecialbly faster, and python's linprog solver is faster than CVXOPT's solvers.</p>
+										<p>We can now look at the time it takes for each algorithm in question to succesfully solve a puzzle. We can see that using the linear independent versions of the constraint matrix runs apprecialbly faster, and python's linprog solver is faster than CVXOPT's solvers. Since there is no reason to keep running experiments using the rank-deficient constraint matrix, in all future experiments, we use only the linear independent matrix.</p>
 									</div>
 									
 								</section>
@@ -239,6 +239,12 @@
 								</section>
 
 								<section id="banner">
+									<div class="content">
+										<p>In all previous experiments, Sudoku boards are randomly generated (such that the resulting board will have a legal solution), which leads to boards that are not completely representative of an actual Sudkoku puzzle. To validate the solver, I ran it on real sudoku puzzles found on https://github.com/jimburton/sudoku on puzzles labeled easy and hard. I ran the re-weighted $\ell_1$ norm algorithm on all puzzles with different values of stopping tolerances and $\epsilon$s and ploted the results below:</p>
+									</div>
+								</section>
+
+								<section id="banner">
 									<span class="image object">
 										<img src="images/sudoku/EasySuc.png" alt="" />
 									</span>
@@ -257,6 +263,14 @@
 										<img src="images/sudoku/HardTime.png" alt="" />
 									</span>
 									
+								</section>
+
+								<section id="banner">
+									<div class="content">
+										<p>We can see that over the tolerances I tested, the tolerance did not affect the succuss rate of the solver, just the amount of time taken. Since a smaller tolerance means a longer runtime, I would keep looking searching how large a stopping tolerance we can get away with, without sacrificing the success rate. We see that out of all epsilons, 0.7 seems to do the best. Anything above 0.5 gives us an equally good success rate and at 0.7 the solver converges the fastest, so it seems like the obvious choice to use for that parameter.</p>
+
+										<p>In conclusion, solving a Sudoku puzzle like this is not the most accurate or most efficient. But, in  a world where all you have is naive brute-force methods and convex solvers, the best course of action would be to use a reweighted $\ell_1$ norm technique to start, check to see if the puzzle is solved correctly, and if not, then use a backtracking algorithm if there was an error. This would give you the relative speed of the convex solver while also giving you the 100% accuracy of the brute-force method.</p>
+									</div>
 								</section>
 
 								

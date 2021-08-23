@@ -12,12 +12,8 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<script type="text/javascript">
 			function testResults (form) {
-				ans = form.namePac.value
-				ans = ans.toLowerCase()
-				correct_list = ['donut', 'torus', 'a donut', 'a torus']
-			    if (correct_list.includes(ans)) {
+			    if (form.codebox1.value == "a donut") {
 			        window.location = 'puzzle1.html';
-			        window.open("puzzle1.html");
 			    }
 			    else {
 			        window.alert("Try again!");
@@ -48,25 +44,22 @@
 							<!-- Content -->
 								<section>
 									<header class="main">
-										<h1>Congratulations!!</h1>
+										<h1>Correct!</h1>
 									</header>
 
 									<span class="image main"><img src="images/pic11.jpg" alt="" /></span>
 
-									<p>You either solved the first riddle or you genuinely wanted to hear one of my fire mixtapes. If the second is true I am sorry to disappoint, but I hope you enjoy puzzles and riddles! If you make it through all the riddles correctly there is a genuine prize at the end. Good luck!</p>
+									<p>Nice job! I haven't completed the entire challenge yet so come back later to complete the rest!</p>
 
 									<hr class="major" />
-
-									<h2>Heres an easy one to start...</h2>
-									<p>If a pacman board was 3 dimensional, what shape would it be?</p>
-									<form name= formPac method="post" action="#">
+									<form method="post" action="#">
 										<div class="row gtr-uniform">
 											<div class="col-6 col-12-xsmall">
-												<input type="text" name="namePac" id="demo-name" value="" placeholder="Answer" />
+												<input type="text" name="demo-name" id="demo-name" value="" placeholder="Name" />
 											</div>
 											<div class="col-12">
 												<ul class="actions">
-													<li><input type="submit" value="Submit" class="primary" onClick="testResults(this.form)" /></li>
+													<li><input type="submit" value="Submit" class="primary" /></li>
 												</ul>
 											</div>
 											<!-- Break -->	
