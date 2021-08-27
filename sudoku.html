@@ -173,7 +173,7 @@
 										$$ x^{(\ell)} = argmin  ||w^Tx||_1 $$
 										<p>Notice that the first iteration is simply the `1 minimization technique described earlier. Once this is done, we update the weights according to the following rule:</p>
 										$$ w_i^{(1 + \ell)}= {1\over|x^\ell_i|+\epsilon} $$
-										<p> Where is to be chosen as a number slightly less than the maximum modulus of our solution vector. In our case, since our solution vector is binary, $\epsilon\in[0.5, 1)$, we for our experiments we choose $\epsilon = 0.5$.  is included to increase the stability of the algorithm and to ensure that a zero-valued component in $x^{(\ell)}$ does not strictly prohibit a nonzero estimate at the next step. The paper claims that the choice of epsilon is fairly robust and we show this to be true later in this paper. The algorithm is terminated when
+										<p> Where is to be chosen as a number slightly less than the maximum modulus of our solution vector. In our case, since our solution vector is binary, $\epsilon\in[0.5, 1)$, we for our experiments we choose $\epsilon = 0.5$.  is included to increase the stability of the algorithm and to ensure that a zero-valued component in $x^{(\ell)}$ does not strictly prohibit a nonzero estimate at the next step. The paper claims that the choice of epsilon is fairly robust and we show this to be true later in our own experiments. The algorithm is terminated when
 										$$ \left\lVert x_i - x_{i-1}\right\rVert^2_2 < k $$ Where k is some stopping tolerance. There is also a maximum iterations parameter that will terminate the program if it has not reached the stopping tolerance in a certain amount of iterations.
 </p>
 
@@ -209,7 +209,7 @@
 										1\over 3 \\
 										0 \\
 										1\over 3
-										\end{bmatrix} $ which has an $\ell_1$ norm of 2. We see that in this situation the $\ell_1$ norm solution does not correspond the the $\ell_0$ norm solution. This is visualized well in (b). In order to fix this, we use the weighting vector that we introduced earlier: $ x^* = \begin{bmatrix}
+										\end{bmatrix} $ which has an $\ell_1$ norm of $2\over 3$. We see that in this situation the $\ell_1$ norm solution does not correspond the the $\ell_0$ norm solution. This is visualized well in (b). In order to fix this, we use the weighting vector that we introduced earlier: $ x^* = \begin{bmatrix}
 										3 \\
 										1 \\
 										3
